@@ -1,0 +1,273 @@
+/* Base Styles */
+        :root {
+            --primary-color: #6a11cb;
+            --secondary-color: #2575fc;
+            --background: #f4f4f4;
+            --dark-background: #121212;
+            --text-color: #333;
+            --card-bg: #fff;
+            --task-complete: #28a745;
+            --task-pending: #ffc107;
+            --task-overdue: #dc3545;
+            --input-bg: #f1f1f1;
+            --hover-color: #ddd;
+            --floating-color: rgb(255, 105, 180);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--background);
+            color: var(--text-color);
+            transition: 0.5s ease;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            animation: textAnimation 2s ease-in-out infinite;
+        }
+
+        /* Floating RGB Animation for Title */
+        @keyframes textAnimation {
+            0%, 100% {
+                color: var(--primary-color);
+            }
+            50% {
+                color: var(--floating-color);
+            }
+        }
+
+        /* Sticky Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            justify-content: center;
+            padding: 15px 0;
+            gap: 20px;
+            z-index: 1000;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        nav a {
+            color: #fff;
+            font-weight: bold;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            transition: 0.3s ease;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        /* Sections */
+        .section {
+            display: none;
+            padding: 20px;
+            background: var(--card-bg);
+            border-radius: 15px;
+            margin: 20px auto;
+            width: 90%;
+            max-width: 800px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Task Form */
+        form input, form select, form button {
+            margin: 10px 0;
+            padding: 12px;
+            width: 100%;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        form input:focus, form select:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(0, 0, 255, 0.5);
+        }
+
+        form button {
+            background: var(--primary-color);
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            transform: scale(1);
+        }
+
+        form button:hover {
+            background: var(--secondary-color);
+            transform: scale(1.05);
+        }
+
+        /* Task Cards */
+        .task-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            margin: 10px 0;
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .task-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .task-status {
+            font-weight: bold;
+            color: var(--task-pending);
+        }
+
+        .task-status.completed {
+            color: var(--task-complete);
+        }
+
+        .task-actions button {
+            background: var(--task-overdue);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: 0.3s;
+        }
+
+        .task-actions button.complete {
+            background: var(--task-complete);
+        }
+
+        .task-actions button:hover {
+            opacity: 0.8;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            background: #ddd;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 20px;
+            background: var(--primary-color);
+            width: 0%;
+            transition: width 0.5s ease-out;
+        }
+
+        /* Dark Mode */
+        body.dark-mode {
+            background: var(--dark-background);
+            color: white;
+        }
+
+        body.dark-mode .task-card, body.dark-mode .section {
+            background: #1f1f1f;
+        }
+
+        .toggle-dark-mode {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 8px 12px;
+            background: #333;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .toggle-dark-mode:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        /* Search Feature */
+        .search-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .search-container input {
+            padding: 10px;
+            width: 60%;
+            margin-bottom: 15px;
+            border-radius: 15px;
+            border: 1px solid var(--hover-color);
+            transition: 0.3s ease;
+        }
+
+        .search-container input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .task-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .search-container input {
+                width: 90%;
+            }
+        }
+        /* Footer */
+footer {
+    background-color: var(--primary-color);
+    color: #fff;
+    text-align: center;
+    padding: 15px;
+    margin-top: 30px;
+    font-size: 1rem;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+footer p {
+    margin: 0;
+}
